@@ -1,6 +1,6 @@
 'use strict';
 
 module.exports = {
-    charSDF: require('./CharSDF'),
-    imageSDF: require('./imageSDF')
+    CharSDF: require('./CharSDF'),
+    ImageSDF: require('./ImageSDF')
 };
