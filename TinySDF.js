@@ -1,6 +1,6 @@
 var INF = 1e20;
 
-var SDF = module.exports = function (radius, cutoff, size) {
+var TinySDF = module.exports = function (size, radius, cutoff) {
     this.radius = radius || 8;
     this.cutoff = cutoff || 0.25;
     this.size = size;
@@ -20,11 +20,11 @@ var SDF = module.exports = function (radius, cutoff, size) {
     this.middle = Math.round((size / 2) * (navigator.userAgent.indexOf('Gecko/') >= 0 ? 1.2 : 1));
 };
 
-SDF.prototype.clear = function(){
+TinySDF.prototype.clear = function(){
     this.ctx.clearRect(0, 0, this.size, this.size);
 };
 
-SDF.prototype.sdf = function (){
+TinySDF.prototype.sdfAlpha = function (){
     var imgData = this.ctx.getImageData(0, 0, this.size, this.size);
     var alphaChannel = new Uint8ClampedArray(this.size * this.size);
 
@@ -43,6 +43,18 @@ SDF.prototype.sdf = function (){
     }
 
     return alphaChannel;
+};
+
+TinySDF.prototype.makeRGBAImageData = function (alphaChannel, size) {
+    var imageData = this.ctx.createImageData(size, size);
+    var data = imageData.data;
+    for (var i = 0; i < alphaChannel.length; i++) {
+        data[4 * i + 0] = alphaChannel[i];
+        data[4 * i + 1] = alphaChannel[i];
+        data[4 * i + 2] = alphaChannel[i];
+        data[4 * i + 3] = 255;
+    }
+    return imageData;
 };
 
 // 2D Euclidean distance transform by Felzenszwalb & Huttenlocher https://cs.brown.edu/~pff/dt/

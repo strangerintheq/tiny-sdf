@@ -1,7 +1,7 @@
 {
   "name": "tiny-sdf",
-  "version": "1.1.1",
-  "description": "Browser-side SDF",
+  "version": "1.1.2",
+  "description": "Browser-side SDF, forked from https://github.com/mapbox/tiny-sdf.git",
   "main": "index.js",
   "repository": {
     "type": "git",

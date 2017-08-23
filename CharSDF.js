@@ -1,10 +1,10 @@
 
 var SDF = require('./SDF');
 
-var CharSDF = module.exports = function (fontSize, buffer, radius, cutoff, fontFamily, fontWeight){
+var CharSDF = module.exports = function (fontSize, buffer, radius, cutoff, fontFamily, fontWeight) {
     this.fontSize = fontSize || 24;
     this.buffer = buffer === undefined ? 3 : buffer;
-    SDF.call(this, radius, cutoff, this.fontSize + this.buffer * 2);
+    SDF.call(this, this.fontSize + this.buffer * 2, radius, cutoff);
     this.fontFamily = fontFamily || 'sans-serif';
     this.fontWeight = fontWeight || 'normal';
     this.ctx.font = this.fontWeight + ' ' + this.fontSize + 'px ' + this.fontFamily;
@@ -17,5 +17,5 @@ CharSDF.prototype = Object.create(SDF.prototype);
 CharSDF.prototype.draw = function (char) {
     this.ctx.clearRect(0, 0, this.size, this.size);
     this.ctx.fillText(char, this.buffer, this.middle);
-    return this.sdf();
+    return this.sdfAlpha();
 };
