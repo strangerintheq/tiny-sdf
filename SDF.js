@@ -1,6 +1,6 @@
 var INF = 1e20;
 
-module.exports = function SDF(radius, cutoff, size) {
+var SDF = module.exports = function (radius, cutoff, size) {
     this.radius = radius || 8;
     this.cutoff = cutoff || 0.25;
     this.size = size;

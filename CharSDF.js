@@ -1,7 +1,7 @@
 
 var SDF = require('./SDF');
 
-module.exports = function CharSDF(fontSize, buffer, radius, cutoff, fontFamily, fontWeight){
+var CharSDF = module.exports = function (fontSize, buffer, radius, cutoff, fontFamily, fontWeight){
     this.fontSize = fontSize || 24;
     this.buffer = buffer === undefined ? 3 : buffer;
     SDF.call(this, radius, cutoff, this.fontSize + this.buffer * 2);

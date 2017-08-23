@@ -1,7 +1,7 @@
 
 var SDF = require('./SDF');
 
-module.exports = function ImageSDF(radius, cutoff, size){
+var ImageSDF = module.exports = function (radius, cutoff, size){
     SDF.call(this, radius, cutoff, size);
 };
 
