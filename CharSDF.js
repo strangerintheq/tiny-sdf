@@ -10,6 +10,7 @@ var CharSDF = module.exports = function (fontSize, buffer, radius, cutoff, fontF
     this.ctx.font = this.fontWeight + ' ' + this.fontSize + 'px ' + this.fontFamily;
     this.ctx.textBaseline = 'middle';
     this.ctx.fillStyle = 'black';
+    this.ctx.textAlign = "center";
 };
 
 CharSDF.prototype = Object.create(TinySDF.prototype);
