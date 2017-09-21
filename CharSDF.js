@@ -16,6 +16,6 @@ CharSDF.prototype = Object.create(TinySDF.prototype);
 
 CharSDF.prototype.draw = function (char) {
     this.ctx.clearRect(0, 0, this.size, this.size);
-    this.ctx.fillText(char, this.buffer, this.middle);
+    this.ctx.fillText(char, this.size/2, this.middle);
     return this.sdfAlpha();
 };
