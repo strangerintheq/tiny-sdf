@@ -15,8 +15,11 @@ var CharSDF = module.exports = function (fontSize, buffer, radius, cutoff, fontF
 
 CharSDF.prototype = Object.create(TinySDF.prototype);
 
-CharSDF.prototype.draw = function (char) {
+CharSDF.prototype.draw = function (char, angle) {
     this.ctx.clearRect(0, 0, this.size, this.size);
+    this.ctx.translate(this.size/2,this.size/2);
+    this.ctx.rotate(angle || 0);
+    this.ctx.translate(-this.size/2,-this.size/2);
     this.ctx.fillText(char, this.size/2, this.middle);
     return this.sdfAlpha();
 };
