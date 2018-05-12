@@ -1,3 +1,46 @@
+(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+
+var TinySDF = require('./TinySDF');
+
+var CharSDF = module.exports = function (fontSize, buffer, radius, cutoff, fontFamily, fontWeight) {
+    this.fontSize = fontSize || 24;
+    this.buffer = buffer === undefined ? 3 : buffer;
+    var size = this.fontSize + this.buffer * 2;
+    TinySDF.call(this, size, size, radius, cutoff);
+    this.fontFamily = fontFamily || 'sans-serif';
+    this.fontWeight = fontWeight || 'normal';
+    this.ctx.font = this.fontWeight + ' ' + this.fontSize + 'px ' + this.fontFamily;
+    this.ctx.textBaseline = 'middle';
+    this.ctx.fillStyle = 'black';
+    this.ctx.textAlign = "center";
+};
+
+CharSDF.prototype = Object.create(TinySDF.prototype);
+
+CharSDF.prototype.draw = function (char, angle) {
+    this.ctx.clearRect(0, 0, this.width, this.height);
+    this.ctx.translate(this.width/2, this.height/2);
+    this.ctx.rotate(angle || 0);
+    this.ctx.translate(-this.width/2,-this.height/2);
+    this.ctx.fillText(char, this.width/2, this.middle);
+    return this.sdfAlpha();
+};
+},{"./TinySDF":3}],2:[function(require,module,exports){
+
+var TinySDF = require('./TinySDF');
+
+var ImageSDF = module.exports = function (width, height, radius, cutoff) {
+    TinySDF.call(this, width, height, radius, cutoff);
+};
+
+ImageSDF.prototype = Object.create(TinySDF.prototype);
+
+ImageSDF.prototype.draw = function (image) {
+    this.ctx.clearRect(0, 0, this.width, this.height);
+    this.ctx.drawImage(image, 0, 0, this.width, this.height);
+    return this.sdfAlpha();
+};
+},{"./TinySDF":3}],3:[function(require,module,exports){
 var INF = 1e20;
 
 var TinySDF = module.exports = function (width, height, radius, cutoff) {
@@ -104,3 +147,13 @@ function edt1d(f, d, v, z, n) {
         d[q] = (q - v[k]) * (q - v[k]) + f[v[k]];
     }
 }
+
+},{}],4:[function(require,module,exports){
+'use strict';
+
+window.SDF = module.exports = {
+    TinySDF: require('./TinySDF'),
+    CharSDF: require('./CharSDF'),
+    ImageSDF: require('./ImageSDF')
+};
+},{"./CharSDF":1,"./ImageSDF":2,"./TinySDF":3}]},{},[4]);

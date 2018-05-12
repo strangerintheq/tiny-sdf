@@ -20,5 +20,13 @@
   "bugs": {
     "url": "https://github.com/strangerintheq/tiny-sdf/issues"
   },
-  "homepage": "https://github.com/strangerintheq/tiny-sdf#readme"
+  "homepage": "https://github.com/strangerintheq/tiny-sdf#readme",
+  "devDependencies": {
+    "browserify": "^13.0.0",
+    "uglify-js": "^2.4.15"
+  },
+  "scripts": {
+    "build": "browserify index.js > dist/tiny-sdf.js",
+    "build-min": "browserify index.js | uglifyjs -cm > dist/tiny-sdf.min.js"
+  }
 }
