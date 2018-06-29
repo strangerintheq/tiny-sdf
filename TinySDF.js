@@ -13,10 +13,14 @@ var TinySDF = module.exports = function (width, height, radius, cutoff) {
     // temporary arrays for the distance transform
     this.gridOuter = new Float64Array(width * height);
     this.gridInner = new Float64Array(width * height);
-    this.f = new Float64Array(height);
-    this.d = new Float64Array(width);
-    this.z = new Float64Array(width + 1);
-    this.v = new Int16Array(width);
+
+    // it is not correct, overhead here, but i didnt have a free time .
+    var size = Math.max(width, height);
+
+    this.f = new Float64Array(size);
+    this.d = new Float64Array(size);
+    this.z = new Float64Array(size + 1);
+    this.v = new Int16Array(size);
 
     // hack around https://bugzilla.mozilla.org/show_bug.cgi?id=737852
     this.middle = Math.round((height / 2) * (navigator.userAgent.indexOf('Gecko/') >= 0 ? 1.2 : 1));
